@@ -1457,35 +1457,57 @@ function AIChatPage({ settings, chatMessages, setChatMessages }) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages, loading]);
 
-  const send = async (e) => {
-    e.preventDefault();
-    const text = input.trim();
-    if (!text || loading) return;
-    setInput("");
-    setError("");
-    const newMessages = [...chatMessages, { role: "user", text }];
-    setChatMessages(newMessages);
-    setLoading(true);
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 1000,
-          system: TUTOR_SYSTEM_PROMPT,
-          messages: newMessages.map((m) => ({ role: m.role, content: m.text })),
-        }),
-      });
-      const data = await response.json();
-      const reply = data?.content?.map((c) => c.text || "").join("\n").trim() || "I couldn't come up with an answer just now — try asking again.";
-      setChatMessages((prev) => [...prev, { role: "assistant", text: reply }]);
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+ const send = async (e) => {
+  e.preventDefault();
+
+  const text = input.trim();
+  if (!text || loading) return;
+
+  setInput("");
+  setError("");
+
+  const newMessages = [...chatMessages, { role: "user", text }];
+  setChatMessages(newMessages);
+  setLoading(true);
+
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        messages: newMessages.map((m) => ({
+          role: m.role,
+          text: m.text,
+        })),
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data?.error || "Gemini request failed.");
     }
-  };
+
+    const reply =
+      data?.reply?.trim() ||
+      "I couldn't come up with an answer just now.";
+
+    setChatMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        text: reply,
+      },
+    ]);
+  } catch (err) {
+    console.error("AI chat error:", err);
+    setError(err.message || "Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const copyText = (text) => navigator.clipboard?.writeText(text).catch(() => {});
 
