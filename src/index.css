@@ -45,3 +45,606 @@ img { max-width: 100%; }
 }
 input[type="date"], input[type="time"] { color-scheme: dark; }
 textarea { resize: vertical; }
+
+
+/* ---------------------------------------------------------------------- */
+/* PRANSHI PERSONAL THEME                                                  */
+/* ---------------------------------------------------------------------- */
+
+:root {
+  --pranshi-black: #0b0a09;
+  --pranshi-charcoal: #171614;
+  --pranshi-panel: #1e1c19;
+  --pranshi-panel-2: #24211d;
+  --pranshi-beige: #e8dcc7;
+  --pranshi-beige-soft: #cdbda4;
+  --pranshi-muted: #9e968b;
+  --pranshi-line: rgba(232, 220, 199, 0.13);
+}
+
+html, body, #root {
+  background: var(--pranshi-black);
+}
+
+body {
+  background:
+    radial-gradient(circle at 85% 8%, rgba(232,220,199,.045), transparent 28rem),
+    var(--pranshi-black);
+  color: #f4f0e9;
+}
+
+.pranshi-home {
+  animation: pranshiFadeUp .65s ease both;
+}
+
+.pranshi-hero {
+  min-height: 330px;
+  display: flex;
+  align-items: center;
+  padding: 2.25rem;
+  border: 1px solid var(--pranshi-line);
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(232,220,199,.10), transparent 45%),
+    linear-gradient(120deg, #191714, #0f0e0d 72%);
+  box-shadow: 0 24px 70px rgba(0,0,0,.28);
+}
+
+.pranshi-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 35%, rgba(232,220,199,.035), transparent 68%);
+  animation: pranshiShimmer 7s ease-in-out infinite;
+}
+
+.pranshi-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.pranshi-orb-one {
+  width: 190px;
+  height: 190px;
+  right: -55px;
+  top: -65px;
+  background: rgba(232,220,199,.08);
+  box-shadow: 0 0 100px rgba(232,220,199,.08);
+  animation: pranshiFloat 6s ease-in-out infinite;
+}
+
+.pranshi-orb-two {
+  width: 90px;
+  height: 90px;
+  right: 23%;
+  bottom: -50px;
+  background: rgba(205,189,164,.05);
+  animation: pranshiFloat 8s ease-in-out infinite reverse;
+}
+
+.pranshi-scribble {
+  position: absolute;
+  right: 12%;
+  top: 27%;
+  color: var(--pranshi-beige-soft);
+  opacity: .35;
+  font-size: 2.2rem;
+  transform: rotate(18deg);
+  animation: pranshiTwinkle 3.2s ease-in-out infinite;
+}
+
+.pranshi-kicker,
+.pranshi-section-label {
+  color: var(--pranshi-beige-soft);
+  font-size: .68rem;
+  letter-spacing: .18em;
+  font-weight: 700;
+}
+
+.pranshi-kicker {
+  padding: .4rem .75rem;
+  border: 1px solid var(--pranshi-line);
+  border-radius: 999px;
+  background: rgba(232,220,199,.045);
+}
+
+.pranshi-sparkle {
+  color: var(--pranshi-beige);
+  animation: pranshiTwinkle 2.5s ease-in-out infinite;
+}
+
+.pranshi-title {
+  margin: 0;
+  font-size: clamp(2.25rem, 6vw, 4.6rem);
+  line-height: .98;
+  letter-spacing: -.055em;
+  font-weight: 650;
+  color: #f6f1e9;
+}
+
+.pranshi-title span {
+  color: var(--pranshi-beige);
+  text-shadow: 0 0 32px rgba(232,220,199,.13);
+}
+
+.pranshi-subtitle {
+  max-width: 650px;
+  margin: 1.15rem 0 .5rem;
+  color: #c4bdb3;
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.pranshi-subtitle strong {
+  color: #f1e8da;
+}
+
+.pranshi-note {
+  color: #817b72;
+  font-size: .78rem;
+  letter-spacing: .03em;
+}
+
+.pranshi-goals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .7rem;
+  margin-top: 1.5rem;
+  max-width: 780px;
+}
+
+.pranshi-goal {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .8rem .85rem;
+  border: 1px solid rgba(232,220,199,.11);
+  border-radius: 16px;
+  background: rgba(255,255,255,.025);
+  transition: transform .25s ease, background .25s ease, border-color .25s ease;
+}
+
+.pranshi-goal:hover {
+  transform: translateY(-4px);
+  background: rgba(232,220,199,.065);
+  border-color: rgba(232,220,199,.24);
+}
+
+.pranshi-goal-icon {
+  font-size: 1.25rem;
+}
+
+.pranshi-goal p,
+.pranshi-goal span {
+  margin: 0;
+}
+
+.pranshi-goal p {
+  color: #eee7dc;
+  font-size: .8rem;
+  font-weight: 650;
+}
+
+.pranshi-goal span:not(.pranshi-goal-icon) {
+  color: #817a70;
+  font-size: .68rem;
+}
+
+.pranshi-message {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid rgba(232,220,199,.18);
+  border-radius: 22px;
+  background: linear-gradient(100deg, rgba(232,220,199,.08), rgba(232,220,199,.025));
+  overflow: hidden;
+}
+
+.pranshi-message::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--pranshi-beige);
+  opacity: .8;
+}
+
+.pranshi-message-icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--pranshi-beige);
+  color: #171411;
+  font-size: 1.25rem;
+  animation: pranshiPulse 3s ease-in-out infinite;
+}
+
+.pranshi-message-text {
+  margin: .35rem 0 0;
+  color: #f3eee6;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.pranshi-message-sign {
+  margin: .18rem 0 0;
+  color: var(--pranshi-beige-soft);
+  font-size: .82rem;
+}
+
+.pranshi-doodle {
+  margin-left: auto;
+  color: var(--pranshi-beige-soft);
+  opacity: .45;
+  font-size: 2rem;
+  transform: rotate(15deg);
+}
+
+.pranshi-alert {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  border-radius: 15px;
+  padding: .85rem 1rem;
+  border: 1px solid var(--pranshi-line);
+  font-size: .82rem;
+}
+
+.pranshi-alert.danger {
+  background: rgba(127,29,29,.18);
+  color: #fca5a5;
+}
+
+.pranshi-alert.warning {
+  background: rgba(120,53,15,.18);
+  color: #e8c88c;
+}
+
+.pranshi-alert.success {
+  background: rgba(6,78,59,.16);
+  color: #9ed5bd;
+}
+
+.pranshi-section-head,
+.pranshi-panel-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .9rem;
+}
+
+.pranshi-section-head h2,
+.pranshi-panel-head h2,
+.pranshi-creative h2 {
+  margin: .25rem 0 0;
+  color: #f2ede5;
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+
+.pranshi-date,
+.pranshi-count {
+  color: #8d867d;
+  font-size: .72rem;
+}
+
+.pranshi-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .75rem;
+}
+
+.pranshi-stat {
+  min-height: 130px;
+  padding: 1rem;
+  text-align: left;
+  border: 1px solid var(--pranshi-line);
+  border-radius: 19px;
+  background: #151412;
+  color: #fff;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.pranshi-stat:hover {
+  transform: translateY(-5px);
+  border-color: rgba(232,220,199,.25);
+  background: #1b1916;
+}
+
+.pranshi-stat .stat-icon {
+  display: block;
+  margin-bottom: .7rem;
+  color: var(--pranshi-beige-soft);
+  font-size: 1.2rem;
+}
+
+.pranshi-stat strong {
+  display: block;
+  color: #f5eee3;
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.pranshi-stat > span:last-child {
+  display: block;
+  margin-top: .35rem;
+  color: #807970;
+  font-size: .7rem;
+}
+
+.pranshi-panel {
+  padding: 1.25rem;
+  border: 1px solid var(--pranshi-line);
+  border-radius: 22px;
+  background: #151412;
+}
+
+.pranshi-progress {
+  height: 7px;
+  overflow: hidden;
+  margin: .8rem 0 1rem;
+  border-radius: 999px;
+  background: #292622;
+}
+
+.pranshi-progress > div {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #a99880, #eee2cd);
+  transition: width .5s ease;
+}
+
+.pranshi-checklist {
+  display: grid;
+  gap: .25rem;
+}
+
+.pranshi-check {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+  padding: .55rem .35rem;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: #c7c0b7;
+  border-radius: 10px;
+  transition: background .2s ease, color .2s ease;
+}
+
+.pranshi-check:hover {
+  background: rgba(232,220,199,.05);
+  color: #fff;
+}
+
+.pranshi-check > span {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid #625c54;
+  border-radius: 7px;
+  color: #171411;
+  font-size: .72rem;
+}
+
+.pranshi-check.done > span {
+  border-color: var(--pranshi-beige);
+  background: var(--pranshi-beige);
+}
+
+.pranshi-check p {
+  margin: 0;
+  font-size: .82rem;
+}
+
+.pranshi-check.done p {
+  color: #68635d;
+  text-decoration: line-through;
+}
+
+.pranshi-mini-link {
+  border: 0;
+  background: transparent;
+  color: var(--pranshi-beige-soft);
+  font-size: .72rem;
+}
+
+.pranshi-mini-link:hover {
+  color: #fff;
+}
+
+.pranshi-deadlines {
+  display: grid;
+  gap: .2rem;
+}
+
+.pranshi-deadline {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .65rem .25rem;
+  border-bottom: 1px solid rgba(232,220,199,.07);
+}
+
+.pranshi-deadline:last-child {
+  border-bottom: 0;
+}
+
+.pranshi-deadline-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--pranshi-beige-soft);
+  box-shadow: 0 0 12px rgba(232,220,199,.3);
+}
+
+.pranshi-deadline > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.pranshi-deadline p {
+  margin: 0;
+  overflow: hidden;
+  color: #d9d2c9;
+  font-size: .78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pranshi-deadline span:not(.pranshi-deadline-dot) {
+  color: #756f67;
+  font-size: .66rem;
+}
+
+.pranshi-creative {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid var(--pranshi-line);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(232,220,199,.065), transparent 55%),
+    #141311;
+  overflow: hidden;
+}
+
+.pranshi-sketch {
+  width: 62px;
+  height: 62px;
+  flex: 0 0 auto;
+  position: relative;
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(232,220,199,.25);
+  border-radius: 19px;
+  color: var(--pranshi-beige-soft);
+  transform: rotate(-4deg);
+}
+
+.pranshi-sketch span {
+  position: absolute;
+  font-size: 1.2rem;
+}
+
+.pranshi-sketch span:nth-child(1) { transform: translate(-10px, 7px) rotate(-25deg); }
+.pranshi-sketch span:nth-child(2) { transform: translate(12px, -11px) rotate(12deg); font-size: .9rem; }
+.pranshi-sketch span:nth-child(3) { transform: translate(14px, 13px) rotate(15deg); font-size: .8rem; }
+
+.pranshi-creative p {
+  margin: .3rem 0 0;
+  color: #888178;
+  font-size: .76rem;
+  line-height: 1.55;
+}
+
+.pranshi-create-btn {
+  margin-left: auto;
+  flex: 0 0 auto;
+  padding: .65rem .85rem;
+  border: 1px solid rgba(232,220,199,.2);
+  border-radius: 12px;
+  background: rgba(232,220,199,.06);
+  color: var(--pranshi-beige);
+  font-size: .72rem;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.pranshi-create-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(232,220,199,.11);
+}
+
+@keyframes pranshiFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pranshiFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, 12px, 0); }
+}
+
+@keyframes pranshiShimmer {
+  0%, 100% { opacity: .2; transform: translateX(-4%); }
+  50% { opacity: .7; transform: translateX(4%); }
+}
+
+@keyframes pranshiTwinkle {
+  0%, 100% { opacity: .3; transform: scale(.96) rotate(15deg); }
+  50% { opacity: .8; transform: scale(1.08) rotate(0deg); }
+}
+
+@keyframes pranshiPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(232,220,199,0); }
+  50% { box-shadow: 0 0 24px rgba(232,220,199,.16); }
+}
+
+@media (max-width: 767px) {
+  .pranshi-hero {
+    min-height: 0;
+    padding: 1.4rem;
+    border-radius: 22px;
+  }
+
+  .pranshi-title {
+    font-size: 2.5rem;
+  }
+
+  .pranshi-goals,
+  .pranshi-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pranshi-message {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .pranshi-doodle {
+    display: none;
+  }
+
+  .pranshi-creative {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .pranshi-create-btn {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .pranshi-goals,
+  .pranshi-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .pranshi-stat {
+    min-height: 100px;
+  }
+
+  .pranshi-message-text {
+    font-size: .92rem;
+  }
+}

@@ -273,7 +273,7 @@ export default function App() {
   const [view, setView] = useState("home");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const [settings, setSettings, lSettings] = usePersisted("settings", { name: "there", avatar: "🎓" });
+  const [settings, setSettings, lSettings] = usePersisted("settings", { name: "Pranshi", avatar: "🎨" });
   const [todos, setTodos, lTodos] = usePersisted("todos", SAMPLE_TODOS);
   const [dailyTasks, setDailyTasks, lDaily] = usePersisted("dailyTasks", SAMPLE_DAILY);
   const [dailyCompletions, setDailyCompletions, lDC] = usePersisted("dailyCompletions", {});
@@ -304,6 +304,13 @@ export default function App() {
     }
   }, [setDailyCompletions]);
 
+
+  // Personalize the old placeholder profile without overwriting a name chosen in Settings.
+  useEffect(() => {
+    if (settings?.name === "there" || !settings?.name) {
+      setSettings((prev) => ({ ...prev, name: "Pranshi", avatar: prev?.avatar || "🎨" }));
+    }
+  }, [settings?.name, setSettings]);
 
   const allLoaded = lSettings && lTodos && lDaily && lDC && lHw && lTt && lTtImg && lExams && lNotes && lWish && lChat;
 
@@ -487,80 +494,173 @@ function HomePage({ settings, todos, homework, exams, timetable, dailyTasks, dai
     });
   };
 
+  const goals = [
+    { icon: "📚", title: "90%+", text: "Exam goal" },
+    { icon: "🏅", title: "Olympiad", text: "Medal mission" },
+    { icon: "🏆", title: "Top Rank", text: "Foundation course" },
+  ];
+
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-medium text-white">{greetingWord()}, {settings.name || "there"} 👋</h1>
-        <p className="text-zinc-500 text-sm mt-1">Ready to make today a good one?</p>
-      </div>
+    <div className="space-y-6 pranshi-home">
+      <section className="pranshi-hero relative overflow-hidden">
+        <div className="pranshi-orb pranshi-orb-one" />
+        <div className="pranshi-orb pranshi-orb-two" />
+        <div className="pranshi-scribble">✦</div>
+
+        <div className="relative z-10">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="pranshi-kicker">PRANSHI'S STUDY SPACE</span>
+            <Sparkles size={15} className="pranshi-sparkle" />
+          </div>
+
+          <h1 className="pranshi-title">
+            {greetingWord()}, <span>Pranshi</span> ♡
+          </h1>
+
+          <p className="pranshi-subtitle">
+            Hey <strong>Pranshuu</strong>! Ready to learn, create and make today count?
+          </p>
+
+          <p className="pranshi-note">
+            Class 9 · Dreaming big · Working consistently · Creating beautifully
+          </p>
+
+          <div className="pranshi-goals">
+            {goals.map((goal) => (
+              <div className="pranshi-goal" key={goal.title}>
+                <span className="pranshi-goal-icon">{goal.icon}</span>
+                <div>
+                  <p>{goal.title}</p>
+                  <span>{goal.text}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pranshi-message">
+        <div className="pranshi-message-icon">♡</div>
+        <div>
+          <span className="pranshi-section-label">A LITTLE REMINDER FOR PRANSHUU</span>
+          <p className="pranshi-message-text">You are the best! You can achieve anything!</p>
+          <p className="pranshi-message-sign">I'm with you always! ❤️</p>
+        </div>
+        <span className="pranshi-doodle">✦</span>
+      </section>
 
       {banner && (
-        <div className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${
-          banner.tone === "danger" ? "bg-red-950 border-red-900 text-red-300" :
-          banner.tone === "warning" ? "bg-amber-950 border-amber-900 text-amber-300" :
-          "bg-emerald-950 border-emerald-900 text-emerald-300"
-        }`}>
+        <div className={`pranshi-alert ${banner.tone}`}>
           {banner.icon}
-          <span className="text-sm">{banner.text}</span>
+          <span>{banner.text}</span>
         </div>
       )}
 
-      <div className="rounded-2xl bg-zinc-900 border border-zinc-800 p-5">
-        <p className="text-white font-medium mb-3">{now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" })}</p>
-        <div className="grid grid-cols-2 gap-3 text-sm">
-          <Stat icon={<BookOpen size={15} />} label={`${todaysClasses} classes today`} onClick={() => goTo("timetable")} />
-          <Stat icon={<CheckSquare size={15} />} label={`${pendingTodos.length} tasks remaining`} onClick={() => goTo("todo")} />
-          <Stat icon={<GraduationCap size={15} />} label={pendingHomework.length ? `${pendingHomework.length} homework pending` : "No homework pending"} onClick={() => goTo("homework")} />
-          <Stat
-            icon={<Clock size={15} />}
-            label={upcomingExam ? `${upcomingExam.subject} in ${daysBetween(today, upcomingExam.date)}d` : "No exams scheduled"}
-            onClick={() => goTo("exams")}
-          />
+      <section>
+        <div className="pranshi-section-head">
+          <div>
+            <span className="pranshi-section-label">YOUR DAY</span>
+            <h2>Today at a glance</h2>
+          </div>
+          <span className="pranshi-date">
+            {now.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" })}
+          </span>
         </div>
-      </div>
 
-      <div className="rounded-2xl bg-zinc-900 border border-zinc-800 p-5">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-white font-medium">Daily checklist</p>
-          <span className="text-xs text-zinc-500">{dailyDone.length} / {dailyTotal} done</span>
+        <div className="pranshi-stats">
+          <button className="pranshi-stat" onClick={() => goTo("timetable")}>
+            <span className="stat-icon">◫</span>
+            <strong>{todaysClasses}</strong>
+            <span>classes today</span>
+          </button>
+          <button className="pranshi-stat" onClick={() => goTo("todo")}>
+            <span className="stat-icon">✓</span>
+            <strong>{pendingTodos.length}</strong>
+            <span>tasks remaining</span>
+          </button>
+          <button className="pranshi-stat" onClick={() => goTo("homework")}>
+            <span className="stat-icon">✎</span>
+            <strong>{pendingHomework.length}</strong>
+            <span>homework pending</span>
+          </button>
+          <button className="pranshi-stat" onClick={() => goTo("exams")}>
+            <span className="stat-icon">☆</span>
+            <strong>{upcomingExam ? daysBetween(today, upcomingExam.date) : "—"}</strong>
+            <span>{upcomingExam ? "days to exam" : "no exam set"}</span>
+          </button>
         </div>
-        <div className="w-full h-2 rounded-full bg-zinc-800 overflow-hidden mb-3">
-          <div className="h-full bg-amber-400 transition-all" style={{ width: dailyTotal ? `${(dailyDone.length / dailyTotal) * 100}%` : "0%" }} />
-        </div>
-        <div className="space-y-1.5">
-          {dailyTasks.slice(0, 5).map((t) => {
-            const done = dailyDone.includes(t.id);
-            return (
-              <button key={t.id} onClick={() => toggleDaily(t.id)} className="flex items-center gap-2 w-full text-left group">
-                <span className={`h-4 w-4 rounded border flex items-center justify-center shrink-0 ${done ? "bg-amber-400 border-amber-400" : "border-zinc-600"}`}>
-                  {done && <Check size={11} className="text-zinc-950" />}
-                </span>
-                <span className={`text-sm ${done ? "text-zinc-600 line-through" : "text-zinc-300"}`}>{t.title}</span>
-              </button>
-            );
-          })}
-        </div>
-        {dailyTasks.length === 0 && <p className="text-zinc-500 text-sm">No daily tasks yet — add some in Daily Tasks.</p>}
-      </div>
+      </section>
 
-      <div className="rounded-2xl bg-zinc-900 border border-zinc-800 p-5">
-        <p className="text-white font-medium mb-3">Coming up</p>
-        {deadlines.length === 0 ? (
-          <p className="text-zinc-500 text-sm">Nothing on the horizon. Enjoy the calm.</p>
-        ) : (
-          <div className="space-y-2">
-            {deadlines.map((d) => {
-              const lbl = dueLabel(d.date);
+      <div className="grid gap-5 md:grid-cols-2">
+        <section className="pranshi-panel">
+          <div className="pranshi-panel-head">
+            <div>
+              <span className="pranshi-section-label">DAILY HABITS</span>
+              <h2>Small steps, big results</h2>
+            </div>
+            <span className="pranshi-count">{dailyDone.length}/{dailyTotal}</span>
+          </div>
+
+          <div className="pranshi-progress">
+            <div style={{ width: dailyTotal ? `${(dailyDone.length / dailyTotal) * 100}%` : "0%" }} />
+          </div>
+
+          <div className="pranshi-checklist">
+            {dailyTasks.slice(0, 5).map((t) => {
+              const done = dailyDone.includes(t.id);
               return (
-                <div key={d.id} className="flex items-center justify-between text-sm">
-                  <span className="text-zinc-300">{d.label}</span>
-                  <Badge tone={lbl.tone === "muted" ? "muted" : lbl.tone}>{lbl.text}</Badge>
-                </div>
+                <button key={t.id} onClick={() => toggleDaily(t.id)} className={`pranshi-check ${done ? "done" : ""}`}>
+                  <span>{done ? "✓" : ""}</span>
+                  <p>{t.title}</p>
+                </button>
               );
             })}
           </div>
-        )}
+          {dailyTasks.length === 0 && <p className="text-zinc-500 text-sm">Add your everyday habits in Daily Tasks.</p>}
+        </section>
+
+        <section className="pranshi-panel">
+          <div className="pranshi-panel-head">
+            <div>
+              <span className="pranshi-section-label">UP NEXT</span>
+              <h2>Deadlines & exams</h2>
+            </div>
+            <button className="pranshi-mini-link" onClick={() => goTo("exams")}>View all →</button>
+          </div>
+
+          {deadlines.length === 0 ? (
+            <p className="text-zinc-500 text-sm">Nothing on the horizon. Enjoy the calm.</p>
+          ) : (
+            <div className="pranshi-deadlines">
+              {deadlines.map((d) => {
+                const lbl = dueLabel(d.date);
+                return (
+                  <div key={d.id} className="pranshi-deadline">
+                    <span className="pranshi-deadline-dot" />
+                    <div>
+                      <p>{d.label}</p>
+                      <span>{d.kind} · {formatNice(d.date)}</span>
+                    </div>
+                    <Badge tone={lbl.tone === "muted" ? "muted" : lbl.tone}>{lbl.text}</Badge>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </section>
       </div>
+
+      <section className="pranshi-creative">
+        <div className="pranshi-sketch" aria-hidden="true">
+          <span>✎</span><span>✦</span><span>♡</span>
+        </div>
+        <div>
+          <span className="pranshi-section-label">CREATIVE SOUL</span>
+          <h2>Learn it. Imagine it. Create it.</h2>
+          <p>Drawing · Sketching · Art · Craft — keep that beautiful creative side of you alive, Pranshuu.</p>
+        </div>
+        <button onClick={() => goTo("notes")} className="pranshi-create-btn">Open Notes ↗</button>
+      </section>
     </div>
   );
 }
